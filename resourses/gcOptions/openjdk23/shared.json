@@ -1,0 +1,553 @@
+{
+  "gc_name": "shared",
+  "size": 5,
+  "options": [
+    {
+      "name": "UseDynamicNumberOfGCThreads",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Dynamically choose the number of threads up to a maximum of ParallelGCThreads parallel collectors will use for garbage collection work"
+    },
+    {
+      "name": "HeapSizePerGCThread",
+      "gc": "shared",
+      "type": "size_t",
+      "default_value": "33554432",
+      "max_value": "1073741824",
+      "min_value": "4096",
+      "description": "Size of heap (bytes) per GC thread used in calculating the number of GC threads"
+    },
+    {
+      "name": "ConcGCThreads",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "0",
+      "max_value": "10000",
+      "min_value": "0",
+      "description": "Number of threads concurrent gc will use"
+    },
+    {
+      "name": "ScavengeBeforeFullGC",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Scavenge youngest generation before each full GC."
+    },
+    {
+      "name": "ExplicitGCInvokesConcurrent",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "A System.gc() request invokes a concurrent collection; (effective only when using concurrent collectors)"
+    },
+    {
+      "name": "TargetPLABWastePct",
+      "gc": "shared",
+      "type": "percent",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Target wasted space in last buffer as percent of overall allocation"
+    },
+    {
+      "name": "PLABWeight",
+      "gc": "shared",
+      "type": "percent",
+      "default_value": "75",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Percentage (0-100) used to weight the current sample when computing exponentially decaying average for ResizePLAB"
+    },
+    {
+      "name": "ResizePLAB",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Dynamically resize (survivor space) promotion LAB's"
+    },
+    {
+      "name": "ParGCArrayScanChunk",
+      "gc": "shared",
+      "type": "int",
+      "default_value": "50",
+      "max_value": "715827882",
+      "min_value": "1",
+      "description": "Scan a subset of object array and push remainder  if array is bigger than this"
+    },
+    {
+      "name": "AlwaysPreTouch",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Force all freshly committed pages to be pre-touched"
+    },
+    {
+      "name": "MarkStackSize",
+      "gc": "shared",
+      "type": "mem_size",
+      "default_value": "4M",
+      "max_value": "536870912",
+      "min_value": "1",
+      "description": "Size of marking stack in bytes."
+    },
+    {
+      "name": "ParallelRefProcEnabled",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Enable parallel reference processing whenever possible"
+    },
+    {
+      "name": "ParallelRefProcBalancingEnabled",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Enable balancing of reference processing queues"
+    },
+    {
+      "name": "InitiatingHeapOccupancyPercent",
+      "gc": "shared",
+      "type": "percent",
+      "default_value": "45",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "The percent occupancy (IHOP) of the current old generation capacity above which a concurrent mark cycle will be initiated Its value may change over time if adaptive IHOP is enabled  otherwise the value remains constant. In the latter case a value of 0 will result as frequent as possible concurrent marking cycles. A value of 100 disables concurrent marking. Fragmentation waste in the old generation is not considered free space in this calculation. (G1 collector only)"
+    },
+    {
+      "name": "AlwaysActAsServerClassMachine",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Always act like a server-class machine"
+    },
+    {
+      "name": "ErgoHeapSizeLimit",
+      "gc": "shared",
+      "type": "mem_size",
+      "default_value": "0",
+      "max_value": "1073741824",
+      "min_value": "0",
+      "description": "Maximum ergonomically set heap size (in bytes); zero means use MaxRAM * MaxRAMPercentage / 100"
+    },
+    {
+      "name": "MaxRAMPercentage",
+      "gc": "shared",
+      "type": "double",
+      "default_value": "25.0",
+      "max_value": "100.0",
+      "min_value": "0.0",
+      "description": "Maximum percentage of real memory used for maximum heap size"
+    },
+    {
+      "name": "MinRAMPercentage",
+      "gc": "shared",
+      "type": "double",
+      "default_value": "50.0",
+      "max_value": "100.0",
+      "min_value": "0.0",
+      "description": "Minimum percentage of real memory used for maximum heapsize on systems with small physical memory size"
+    },
+    {
+      "name": "InitialRAMPercentage",
+      "gc": "shared",
+      "type": "double",
+      "default_value": "1.5625",
+      "max_value": "100.0",
+      "min_value": "0.0",
+      "description": "Percentage of real memory used for initial heap size"
+    },
+    {
+      "name": "ActiveProcessorCount",
+      "gc": "shared",
+      "type": "int",
+      "default_value": "-1",
+      "max_value": "1024",
+      "min_value": "0",
+      "description": "Specify the CPU count the VM should use and report as active"
+    },
+    {
+      "name": "AdaptiveSizeThroughPutPolicy",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "0",
+      "max_value": "1",
+      "min_value": "0",
+      "description": "Policy for changing generation size for throughput goals"
+    },
+    {
+      "name": "AdaptiveSizePolicyInitializingSteps",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "20",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Number of steps where heuristics is used before data is used"
+    },
+    {
+      "name": "AdaptiveSizePolicyOutputInterval",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "0",
+      "max_value": "3600000",
+      "min_value": "0",
+      "description": "Collection interval for printing information; zero means never"
+    },
+    {
+      "name": "AdaptiveSizePolicyWeight",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Weight given to exponential resizing  between 0 and 100"
+    },
+    {
+      "name": "AdaptiveTimeWeight",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "25",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Weight given to time in adaptive policy  between 0 and 100"
+    },
+    {
+      "name": "PausePadding",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "1",
+      "max_value": "4294967295",
+      "min_value": "0",
+      "description": "How much buffer to keep for pause time"
+    },
+    {
+      "name": "PromotedPadding",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "3",
+      "max_value": "4294967295",
+      "min_value": "0",
+      "description": "How much buffer to keep for promotion failure"
+    },
+    {
+      "name": "SurvivorPadding",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "3",
+      "max_value": "4294967295",
+      "min_value": "0",
+      "description": "How much buffer to keep for survivor overflow"
+    },
+    {
+      "name": "ThresholdTolerance",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Allowed collection cost difference between generations"
+    },
+    {
+      "name": "YoungGenerationSizeIncrement",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "20",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Adaptive size percentage change in young generation"
+    },
+    {
+      "name": "YoungGenerationSizeSupplement",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "80",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Supplement to YoungedGenerationSizeIncrement used at startup"
+    },
+    {
+      "name": "YoungGenerationSizeSupplementDecay",
+      "gc": "shared",
+      "type": "uintx",
+      "default_value": "8",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Decay factor to YoungedGenerationSizeSupplement"
+    },
+    {
+      "name": "TenuredGenerationSizeIncrement",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "20",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Adaptive size percentage change in tenured generation"
+    },
+    {
+      "name": "TenuredGenerationSizeSupplement",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "80",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Supplement to TenuredGenerationSizeIncrement used at startup"
+    },
+    {
+      "name": "TenuredGenerationSizeSupplementDecay",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "2",
+      "max_value": "1073741824",
+      "min_value": "1",
+      "description": "Decay factor to TenuredGenerationSizeIncrement"
+    },
+    {
+      "name": "MaxGCPauseMillis",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "3600000",
+      "max_value": "3600000",
+      "min_value": "1",
+      "description": "Adaptive size policy maximum GC pause time goal in millisecond  or (G1 Only) the maximum GC time per MMU time slice"
+    },
+    {
+      "name": "GCPauseIntervalMillis",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "100",
+      "max_value": "4294967295",
+      "min_value": "10",
+      "precedes": "MaxGCPauseMillis",
+      "greater_than": "MaxGCPauseMillis",
+      "description": "Time slice for MMU specification"
+    },
+    {
+      "name": "GCTimeRatio",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "99",
+      "max_value": "4294967295",
+      "min_value": "0",
+      "description": "Adaptive size policy application time to GC time ratio"
+    },
+    {
+      "name": "AdaptiveSizeDecrementScaleFactor",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "4",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Adaptive size scale down factor for shrinking"
+    },
+    {
+      "name": "AdaptiveSizeMajorGCDecayTimeScale",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "10",
+      "max_value": "3600000",
+      "min_value": "0",
+      "description": "Time scale over which major costs decay"
+    },
+    {
+      "name": "MinSurvivorRatio",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "3",
+      "max_value": "100",
+      "min_value": "3",
+      "description": "Minimum ratio of young generation/survivor space size"
+    },
+    {
+      "name": "InitialSurvivorRatio",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "8",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Initial ratio of young generation/survivor space size"
+    },
+    {
+      "name": "BaseFootPrintEstimate",
+      "gc": "shared",
+      "type": "size_t",
+      "default_value": "268435456",
+      "max_value": "1073741824",
+      "min_value": "0",
+      "description": "Estimate of footprint other than Java Heap"
+    },
+    {
+      "name": "GCTimeLimit",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "98",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Limit of the proportion of time spent in GC before an OutOfMemoryError is thrown (used with GCHeapFreeLimit)"
+    },
+    {
+      "name": "GCHeapFreeLimit",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "2",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Minimum percentage of free space after a full GC before an OutOfMemoryError is thrown (used with GCTimeLimit)"
+    },
+    {
+      "name": "PrefetchCopyIntervalInBytes",
+      "gc": "shared",
+      "type": "int",
+      "default_value": "-1",
+      "max_value": "2147483647",
+      "min_value": "-1",
+      "description": "How far ahead to prefetch destination area (<= 0 means off)"
+    },
+    {
+      "name": "PrefetchScanIntervalInBytes",
+      "gc": "shared",
+      "type": "int",
+      "default_value": "-1",
+      "max_value": "2147483647",
+      "min_value": "-1",
+      "description": "How far ahead to prefetch scan area (<= 0 means off)"
+    },
+
+    {
+      "name": "DisableExplicitGC",
+      "gc": "shared",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Ignore calls to System.gc()"
+    },
+    {
+      "name": "MaxHeapSize",
+      "gc": "shared",
+      "type": "size_t",
+      "default_value": "100663296",
+      "max_value": "1073741824",
+      "min_value": "10485760",
+      "description": "Maximum heap size (in bytes)"
+    },
+    {
+      "name": "InitialHeapSize",
+      "gc": "shared",
+      "type": "size_t",
+      "default_value": "0",
+      "max_value": "1073741824",
+      "min_value": "10485760",
+      "precedes": "MaxHeapSize",
+      "less_than": "MaxHeapSize",
+      "description": "Initial heap size (in bytes); zero means use ergonomics"
+    },
+    {
+      "name": "SoftMaxHeapSize",
+      "gc": "shared",
+      "type": "size_t",
+      "default_value": "0",
+      "max_value": "1073741824",
+      "min_value": "0",
+      "precedes": "MaxHeapSize",
+      "less_than": "MaxHeapSize",
+      "description": "Soft limit for maximum heap size (in bytes)"
+    },
+    {
+      "name": "OldSize",
+      "gc": "shared",
+      "type": "size_t",
+      "default_value": "4M",
+      "max_value": "1073741824",
+      "min_value": "0",
+      "description": "Initial tenured generation size (in bytes)"
+    },
+    {
+      "name": "PretenureSizeThreshold",
+      "gc": "shared",
+      "type": "size_t",
+      "default_value": "0",
+      "max_value": "1073741824",
+      "min_value": "0",
+      "description": "Maximum size in bytes of objects allocated in DefNew generation; zero means no maximum"
+    },
+    {
+      "name": "NewRatio",
+      "gc": "shared",
+      "type": "uintx",
+      "default_value": "2",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Ratio of old/new generation sizes"
+    },
+    {
+      "name": "QueuedAllocationWarningCount",
+      "gc": "shared",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "4294967295",
+      "min_value": "0",
+      "description": "Number of times an allocation that queues behind a GC will retry before printing a warning"
+    },
+    {
+      "name": "MaxTenuringThreshold",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "15",
+      "max_value": "16",
+      "min_value": "0",
+      "description": "Maximum value for tenuring threshold"
+    },
+    {
+      "name": "InitialTenuringThreshold",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "7",
+      "max_value": "16",
+      "min_value": "0",
+      "description": "Initial value for tenuring threshold"
+    },
+    {
+      "name": "TargetSurvivorRatio",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "50",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Desired percentage of survivor space used after scavenge"
+    },
+    {
+      "name": "MarkSweepDeadRatio",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "5",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Percentage (0-100) of the old gen allowed as dead wood. Serial full gc treats this as both the minimum and maximum value. Parallel full gc treats this as maximum value  i.e. when allowing dead wood  Parallel full gc wastes at most this amount of space.G1 full gc treats this as an allowed garbage threshold to skip compaction of heap regions  i.e. if a heap region has less garbage than this value  then the region will not be compactedduring G1 full GC."
+    },
+    {
+      "name": "MarkSweepAlwaysCompactCount",
+      "gc": "shared",
+      "type": "uint",
+      "default_value": "4",
+      "max_value": "4294967295",
+      "min_value": "1",
+      "description": "How often should we fully compact the heap (ignoring the dead space parameters)"
+    }
+  ]
+}

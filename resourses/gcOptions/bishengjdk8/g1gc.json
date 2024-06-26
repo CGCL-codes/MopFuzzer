@@ -1,0 +1,1320 @@
+{
+  "gc_name": "g1gc",
+  "size": 10,
+  "options": [
+    {
+      "name": "G1ConfidencePercent",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "50",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Confidence level for MMU/pause predictions"
+    },
+    {
+      "name": "G1ConcMarkStepDurationMillis",
+      "gc": "g1gc",
+      "type": "double",
+      "default_value": "10.0",
+      "max_value": "1000.0",
+      "min_value": "1.0",
+      "description": "Target duration of individual concurrent marking steps in milliseconds."
+    },
+    {
+      "name": "G1RefProcDrainInterval",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "10",
+      "max_value": "1000",
+      "min_value": "1",
+      "description": "The number of discovered reference objects to process before draining concurrent marking work queues."
+    },
+    {
+      "name": "G1SATBBufferSize",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "1024",
+      "max_value": "1048576",
+      "min_value": "1",
+      "description": "Number of entries in an SATB log buffer."
+    },
+    {
+      "name": "G1SATBBufferEnqueueingThresholdPercent",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "60",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Before enqueueing them  each mutator thread tries to do some filtering on the SATB buffers it generates. If post-filtering the percentage of retained entries is over this threshold the buffer will be enqueued for processing. A value of 0 specifies that mutator threads should not do such filtering."
+    },
+    {
+      "name": "G1UpdateBufferSize",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "256",
+      "max_value": "1048576",
+      "min_value": "1",
+      "description": "Size of an update buffer"
+    },
+    {
+      "name": "G1ConcRefinementYellowZone",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "0",
+      "max_value": "10",
+      "min_value": "0",
+      "description": "Number of enqueued update buffers that will trigger concurrent processing. Will be selected ergonomically by default."
+    },
+    {
+      "name": "G1ConcRefinementRedZone",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "0",
+      "max_value": "10",
+      "min_value": "0",
+      "description": "Maximum number of enqueued update buffers before mutator threads start processing new ones instead of enqueueing them. Will be selected ergonomically by default. Zero will disable concurrent processing."
+    },
+    {
+      "name": "G1ConcRefinementGreenZone",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "0",
+      "max_value": "10",
+      "min_value": "0",
+      "description": "The number of update buffers that are left in the queue by the concurrent processing threads. Will be selected ergonomically by default."
+    },
+    {
+      "name": "G1ConcRefinementServiceIntervalMillis",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "300",
+      "max_value": "300000",
+      "min_value": "0",
+      "description": "The last concurrent refinement thread wakes up every specified number of milliseconds to do miscellaneous work."
+    },
+    {
+      "name": "G1ConcRefinementThresholdStep",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "0",
+      "max_value": "3600",
+      "min_value": "0",
+      "description": "Each time the rset update queue increases by this amount activate the next refinement thread if available. Will be selected ergonomically by default."
+    },
+    {
+      "name": "G1RSetUpdatingPauseTimePercent",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "A target percentage of time that is allowed to be spend on process RS update buffers during the collection pause."
+    },
+    {
+      "name": "G1UseAdaptiveConcRefinement",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Select green  yellow and red zones adaptively to meet the the pause requirements."
+    },
+    {
+      "name": "G1ConcRSLogCacheSize",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "10",
+      "max_value": "27",
+      "min_value": "0",
+      "description": "Log base 2 of the length of conc RS hot-card cache."
+    },
+    {
+      "name": "G1ConcRSHotCardLimit",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "4",
+      "max_value": "255",
+      "min_value": "0",
+      "description": "The threshold that defines (>=) a hot card."
+    },
+    {
+      "name": "G1RSetRegionEntries",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "0",
+      "max_value": "1000",
+      "min_value": "1",
+      "description": "Max number of regions for which we keep bitmaps.Will be set ergonomically by default"
+    },
+    {
+      "name": "G1RSetSparseRegionEntries",
+      "gc": "g1gc",
+      "type": "intx",
+      "default_value": "1",
+      "max_value": "1000",
+      "min_value": "1",
+      "description": "Max number of entries per region in a sparse table.Will be set ergonomically by default."
+    },
+    {
+      "name": "G1ReservePercent",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "It determines the minimum reserve we should have in the heap to minimize the probability of promotion failure."
+    },
+    {
+      "name": "G1HeapRegionSize",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "1048576",
+      "min_value": "0",
+      "description": "Size of the G1 regions."
+    },
+    {
+      "name": "G1ConcRefinementThreads",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "50",
+      "min_value": "0",
+      "description": "If non-0 is the number of parallel rem set update threads  otherwise the value is determined ergonomically."
+    },
+    {
+      "name": "G1RSetScanBlockSize",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "64",
+      "max_value": "1048576",
+      "min_value": "0",
+      "description": "Size of a work unit of cards claimed by a worker threadduring RSet scanning."
+    },
+    {
+      "name": "G1HeapWastePercent",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "5",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Amount of space  expressed as a percentage of the heap size  that G1 is willing not to collect to avoid expensive GCs."
+    },
+    {
+      "name": "G1MixedGCCountTarget",
+      "gc": "g1gc",
+      "type": "uintx",
+      "default_value": "8",
+      "max_value": "8000",
+      "min_value": "0",
+      "description": "The target number of mixed GCs after a marking cycle."
+    },
+    {
+      "name": "G1Uncommit",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Allow G1 to uncommit unused memory."
+    },
+    {
+      "name": "G1PeriodGCNotRetry",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Not allow denied G1 Periodic GC try again."
+    },
+    {
+      "name": "G1UncommitLog",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Enable G1 uncommit logs."
+    },
+    {
+      "name": "G1ParallelFullGC",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Enable Parallel Full GC for G1"
+    },
+    {
+      "name": "UseG1GC",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use the Garbage-First garbage collector"
+    },
+    {
+      "name": "UseLargePagesInMetaspace",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use large page memory in metaspace. Only used if UseLargePages is enabled."
+    },
+    {
+      "name": "UseNUMA",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use NUMA if available"
+    },
+    {
+      "name": "UseNUMAInterleaving",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Interleave memory across NUMA nodes if available"
+    },
+    {
+      "name": "NUMAInterleaveGranularity",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "2097152",
+      "max_value": "2097152000",
+      "min_value": "0",
+      "description": "Granularity to use for NUMA interleaving on Windows OS"
+    },
+    {
+      "name": "ForceNUMA",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Force NUMA optimizations on single-node/UMA systems"
+    },
+    {
+      "name": "NUMAChunkResizeWeight",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "20",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Percentage (0-100) used to weigh the current sample when computing exponentially decaying average for AdaptiveNUMAChunkSizing"
+    },
+    {
+      "name": "NUMASpaceResizeRate",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1073741823",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Do not reallocate more than this amount per collection"
+    },
+    {
+      "name": "UseAdaptiveNUMAChunkSizing",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Enable adaptive chunk sizing for NUMA"
+    },
+    {
+      "name": "NUMAStats",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Print NUMA stats in detailed heap information"
+    },
+    {
+      "name": "NUMAPageScanRate",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "256",
+      "max_value": "1024",
+      "min_value": "0",
+      "description": "Maximum number of pages to include in the page scan procedure"
+    },
+    {
+      "name": "LogNUMANodes",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Print NUMANodes"
+    },
+    {
+      "name": "NUMANodesRandom",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "1024",
+      "min_value": "0",
+      "description": "Number of continuous nodes to bindwith the first node randomly chosen.NUMANodesRandom has higher priority than NUMANodes"
+    },
+    {
+      "name": "LargePageSizeInBytes",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1",
+      "max_value": "1073741823",
+      "min_value": "1",
+      "description": "Large page size (0 to let VM choose the page size)"
+    },
+    {
+      "name": "LargePageHeapSizeThreshold",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "134217728",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Use large pages if maximum heap is at least this big"
+    },
+    {
+      "name": "HeapMaximumCompactionInterval",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "20",
+      "max_value": "20000",
+      "min_value": "0",
+      "description": "How often should we maximally compact the heap (not allowing any dead space)"
+    },
+    {
+      "name": "HeapFirstMaximumCompactionCount",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "3",
+      "max_value": "3000",
+      "min_value": "0",
+      "description": "The collection count for the first maximum compaction"
+    },
+    {
+      "name": "UseMaximumCompactionOnSystemGC",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use maximum compaction in the Parallel Old garbage collector for a system GC"
+    },
+    {
+      "name": "ParallelOldDeadWoodLimiterMean",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "50",
+      "max_value": "50000",
+      "min_value": "0",
+      "description": "The mean used by the parallel compact dead wood limiter (a number between 0-100)"
+    },
+    {
+      "name": "ParallelOldDeadWoodLimiterStdDev",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "80",
+      "max_value": "80000",
+      "min_value": "0",
+      "description": "The standard deviation used by the parallel compact dead wood limiter (a number between 0-100)"
+    },
+    {
+      "name": "UseDynamicNumberOfGCThreads",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Dynamically choose the number of parallel threads parallel gc will use"
+    },
+    {
+      "name": "HeapSizePerGCThread",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "67108864",
+      "max_value": "1073741823",
+      "min_value": "4096",
+      "description": "Size of heap (bytes) per GC thread used in calculating the number of GC threads"
+    },
+    {
+      "name": "ConcGCThreads",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "96",
+      "min_value": "0",
+      "description": "Number of threads concurrent gc will use"
+    },
+    {
+      "name": "YoungPLABSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4096",
+      "max_value": "2097152",
+      "min_value": "0",
+      "description": "Size of young gen promotion LAB's (in HeapWords)"
+    },
+    {
+      "name": "OldPLABSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1024",
+      "max_value": "1048576",
+      "min_value": "0",
+      "description": "Size of old gen promotion LAB's (in HeapWords)"
+    },
+    {
+      "name": "GCTaskTimeStampEntries",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "200",
+      "max_value": "20000",
+      "min_value": "1",
+      "description": "Number of time stamp entries per gc worker thread"
+    },
+    {
+      "name": "GCLockerInvokesConcurrent",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "The exit of a JNI critical section necessitating a scavenge  also kicks off a background concurrent collection"
+    },
+    {
+      "name": "GCLockerEdenExpansionPercent",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "5",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "How much the GC can expand the eden by while the GC locker is active (as a percentage)"
+    },
+    {
+      "name": "TargetPLABWastePct",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Target wasted space in last buffer as percent of overall allocation"
+    },
+    {
+      "name": "PLABWeight",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "75",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Percentage (0-100) used to weigh the current sample when computing exponentially decaying average for ResizePLAB"
+    },
+    {
+      "name": "ResizePLAB",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Dynamically resize (survivor space) promotion LAB's"
+    },
+    {
+      "name": "ResizeOldPLAB",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Dynamically resize (old gen) promotion LAB's"
+    },
+    {
+      "name": "MarkStackSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4194304",
+      "max_value": "16777216",
+      "min_value": "0",
+      "description": "Size of marking stack"
+    },
+    {
+      "name": "MarkStackSizeMax",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "536870912",
+      "max_value": "1073741823",
+      "min_value": "1",
+      "description": "Maximum size of marking stack"
+    },
+    {
+      "name": "InitiatingHeapOccupancyPercent",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "45",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Percentage of the (entire) heap occupancy to start a concurrent GC cycle. It is used by GCs that trigger a concurrent GC cycle based on the occupancy of the entire heap  not just one of the generations (e.g.  G1). A value of 0 denotes 'do constant GC cycles'."
+    },
+    {
+      "name": "ZeroTLAB",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Zero out the newly created TLAB"
+    },
+    {
+      "name": "FastTLABRefill",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use fast TLAB refill code"
+    },
+    {
+      "name": "AlwaysActAsServerClassMachine",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Always act like a server-class machine"
+    },
+    {
+      "name": "ErgoHeapSizeLimit",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "4294967296",
+      "min_value": "0",
+      "description": "Maximum ergonomically set heap size (in bytes); zero means use MaxRAM * MaxRAMPercentage / 100"
+    },
+    {
+      "name": "MaxRAMFraction",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4",
+      "max_value": "4000",
+      "min_value": "1",
+      "description": "Maximum fraction (1/n) of real memory used for maximum heap size"
+    },
+    {
+      "name": "MinRAMFraction",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "2",
+      "max_value": "2000",
+      "min_value": "1",
+      "description": "Minimum fraction (1/n) of real memory used for maxmimum heap size on systems with small physical memory size"
+    },
+    {
+      "name": "InitialRAMFraction",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "64",
+      "max_value": "64000",
+      "min_value": "1",
+      "description": "Fraction (1/n) of real memory used for initial heap size"
+    },
+    {
+      "name": "InitialRAMPercentage",
+      "gc": "g1",
+      "type": "double",
+      "default_value": "1.5625",
+      "max_value": "100.0",
+      "min_value": "0.0",
+      "description": "Percentage of real memory used for initial heap size"
+    },
+    {
+      "name": "UseAutoGCSelectPolicy",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use automatic collection selection policy"
+    },
+    {
+      "name": "AutoGCSelectPauseMillis",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "5000",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Automatic GC selection pause threshold in milliseconds"
+    },
+    {
+      "name": "UseAdaptiveSizePolicy",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use adaptive generation sizing policies"
+    },
+    {
+      "name": "UsePSAdaptiveSurvivorSizePolicy",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use adaptive survivor sizing policies"
+    },
+    {
+      "name": "UseAdaptiveGenerationSizePolicyAtMinorCollection",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use adaptive young-old sizing policies at minor collections"
+    },
+    {
+      "name": "UseAdaptiveGenerationSizePolicyAtMajorCollection",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use adaptive young-old sizing policies at major collections"
+    },
+    {
+      "name": "UseAdaptiveSizePolicyWithSystemGC",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Include statistics from System.gc() for adaptive size policy"
+    },
+    {
+      "name": "UseAdaptiveGCBoundary",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Allow young-old boundary to move"
+    },
+    {
+      "name": "AdaptiveSizeThroughPutPolicy",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Policy for changing generation size for throughput goals"
+    },
+    {
+      "name": "AdaptiveSizePausePolicy",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Policy for changing generation size for pause goals"
+    },
+    {
+      "name": "AdaptiveSizePolicyInitializingSteps",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "20",
+      "max_value": "20000",
+      "min_value": "0",
+      "description": "Number of steps where heuristics is used before data is used"
+    },
+    {
+      "name": "AdaptiveSizePolicyOutputInterval",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "1000",
+      "min_value": "0",
+      "description": "Collection interval for printing information; zero means never"
+    },
+    {
+      "name": "UseAdaptiveSizePolicyFootprintGoal",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use adaptive minimum footprint as a goal"
+    },
+    {
+      "name": "AdaptiveSizePolicyWeight",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Weight given to exponential resizing  between 0 and 100"
+    },
+    {
+      "name": "AdaptiveTimeWeight",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "25",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Weight given to time in adaptive policy  between 0 and 100"
+    },
+    {
+      "name": "PausePadding",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "How much buffer to keep for pause time"
+    },
+    {
+      "name": "PromotedPadding",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "3",
+      "max_value": "300",
+      "min_value": "0",
+      "description": "How much buffer to keep for promotion failure"
+    },
+    {
+      "name": "SurvivorPadding",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "3",
+      "max_value": "300",
+      "min_value": "0",
+      "description": "How much buffer to keep for survivor overflow"
+    },
+    {
+      "name": "ThresholdTolerance",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Allowed collection cost difference between generations"
+    },
+    {
+      "name": "AdaptiveSizePolicyCollectionCostMargin",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "50",
+      "max_value": "5000",
+      "min_value": "0",
+      "description": "If collection costs are within margin  reduce both by full delta"
+    },
+    {
+      "name": "YoungGenerationSizeIncrement",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "20",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Adaptive size percentage change in young generation"
+    },
+    {
+      "name": "YoungGenerationSizeSupplement",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "80",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Supplement to YoungedGenerationSizeIncrement used at startup"
+    },
+    {
+      "name": "YoungGenerationSizeSupplementDecay",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "8",
+      "max_value": "8000",
+      "min_value": "0",
+      "description": "Decay factor to YoungedGenerationSizeSupplement"
+    },
+    {
+      "name": "TenuredGenerationSizeIncrement",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "20",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Adaptive size percentage change in tenured generation"
+    },
+    {
+      "name": "TenuredGenerationSizeSupplement",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "80",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Supplement to TenuredGenerationSizeIncrement used at startup"
+    },
+    {
+      "name": "TenuredGenerationSizeSupplementDecay",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "2",
+      "max_value": "2000",
+      "min_value": "0",
+      "description": "Decay factor to TenuredGenerationSizeIncrement"
+    },
+    {
+      "name": "MaxGCPauseMillis",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1073741823",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Adaptive size policy maximum GC pause time goal in millisecond  or (G1 Only) the maximum GC time per MMU time slice"
+    },
+    {
+      "name": "GCPauseIntervalMillis",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1",
+      "max_value": "1000",
+      "min_value": "1",
+      "description": "Time slice for MMU specification"
+    },
+    {
+      "name": "MaxGCMinorPauseMillis",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1073741823",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Adaptive size policy maximum GC minor pause time goal in millisecond"
+    },
+    {
+      "name": "GCTimeRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "99",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Adaptive size policy application time to GC time ratio"
+    },
+    {
+      "name": "AdaptiveSizeDecrementScaleFactor",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4",
+      "max_value": "400",
+      "min_value": "1",
+      "description": "Adaptive size scale down factor for shrinking"
+    },
+    {
+      "name": "UseAdaptiveSizeDecayMajorGCCost",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Adaptive size decays the major cost for long major intervals"
+    },
+    {
+      "name": "AdaptiveSizeMajorGCDecayTimeScale",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "10",
+      "max_value": "10000",
+      "min_value": "0",
+      "description": "Time scale over which major costs decay"
+    },
+    {
+      "name": "MinSurvivorRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "3",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Minimum ratio of young generation/survivor space size"
+    },
+    {
+      "name": "InitialSurvivorRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "8",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Initial ratio of young generation/survivor space size"
+    },
+    {
+      "name": "BaseFootPrintEstimate",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "268435456",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Estimate of footprint other than Java Heap"
+    },
+    {
+      "name": "UseGCOverheadLimit",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use policy to limit of proportion of time spent in GC before an OutOfMemory error is thrown"
+    },
+    {
+      "name": "GCTimeLimit",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "98",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Limit of the proportion of time spent in GC before an OutOfMemoryError is thrown (used with GCHeapFreeLimit)"
+    },
+    {
+      "name": "GCHeapFreeLimit",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "2",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Minimum percentage of free space after a full GC before an OutOfMemoryError is thrown (used with GCTimeLimit)"
+    },
+    {
+      "name": "PrefetchCopyIntervalInBytes",
+      "gc": "g1",
+      "type": "intx",
+      "default_value": "-1",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "How far ahead to prefetch destination area (<= 0 means off)"
+    },
+    {
+      "name": "PrefetchScanIntervalInBytes",
+      "gc": "g1",
+      "type": "intx",
+      "default_value": "-1",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "How far ahead to prefetch scan area (<= 0 means off)"
+    },
+    {
+      "name": "PrefetchFieldsAhead",
+      "gc": "g1",
+      "type": "intx",
+      "default_value": "-1",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "How many fields ahead to prefetch in oop scan (<= 0 means off)"
+    },
+    {
+      "name": "DisableExplicitGC",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Ignore calls to System.gc()"
+    },
+    {
+      "name": "CollectGen0First",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Collect youngest generation before each full GC"
+    },
+    {
+      "name": "BindGCTaskThreadsToCPUs",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Bind GCTaskThreads to CPUs if possible"
+    },
+    {
+      "name": "UseGCTaskAffinity",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Use worker affinity when asking for GCTasks"
+    },
+    {
+      "name": "ProcessDistributionStride",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4",
+      "max_value": "4000",
+      "min_value": "0",
+      "description": "Stride through processors when distributing processes"
+    },
+    {
+      "name": "IgnoreEmptyClassPaths",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Ignore empty path elements in -classpath"
+    },
+    {
+      "name": "UseGCLogFileRotation",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "false",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Rotate gclog files (for long running applications). It requires -Xloggc:<filename>"
+    },
+    {
+      "name": "MaxHeapSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "100663296",
+      "max_value": "4294967296",
+      "min_value": "268435456",
+      "description": "Maximum heap size (in bytes)"
+    },
+    {
+      "name": "OldSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4194304",
+      "max_value": "1073741823",
+      "min_value": "1024",
+      "description": "Initial tenured generation size (in bytes)"
+    },
+    {
+      "name": "MaxNewSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1073741823",
+      "max_value": "1073741823",
+      "min_value": "1",
+      "description": "Maximum new generation size (in bytes)  max_uintx means set ergonomically"
+    },
+    {
+      "name": "PretenureSizeThreshold",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Maximum size in bytes of objects allocated in DefNew generation; zero means no maximum"
+    },
+    {
+      "name": "TLABSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Starting TLAB size (in bytes); zero means set ergonomically"
+    },
+    {
+      "name": "MinTLABSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "2048",
+      "max_value": "1073741823",
+      "min_value": "1",
+      "description": "Minimum allowed TLAB size (in bytes)"
+    },
+    {
+      "name": "TLABAllocationWeight",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "35",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Allocation averaging weight"
+    },
+    {
+      "name": "TLABWasteTargetPercent",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Percentage of Eden that can be wasted"
+    },
+    {
+      "name": "TLABRefillWasteFraction",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "64",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Maximum TLAB waste at a refill (internal fragmentation)"
+    },
+    {
+      "name": "TLABWasteIncrement",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Increment allowed waste at slow allocation"
+    },
+    {
+      "name": "SurvivorRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "8",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Ratio of eden/survivor space size"
+    },
+    {
+      "name": "NewRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "2",
+      "max_value": "100",
+      "min_value": "1",
+      "description": "Ratio of old/new generation sizes"
+    },
+    {
+      "name": "MaxMetaspaceSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1073741823",
+      "max_value": "1073741823",
+      "min_value": "10240000",
+      "description": "Maximum size of Metaspaces (in bytes)"
+    },
+    {
+      "name": "CompressedClassSpaceSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "1073741823",
+      "max_value": "3221225472",
+      "min_value": "1048576",
+      "description": "Maximum size of class area in Metaspace when compressed class pointers are used"
+    },
+    {
+      "name": "MinHeapDeltaBytes",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "131072",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "The minimum change in heap space due to GC (in bytes)"
+    },
+    {
+      "name": "MinMetaspaceExpansion",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "262144",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "The minimum expansion of Metaspace (in bytes)"
+    },
+    {
+      "name": "MinMetaspaceFreeRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "40",
+      "max_value": "50",
+      "min_value": "0",
+      "description": "The minimum percentage of Metaspace free after GC to avoid expansion"
+    },
+    {
+      "name": "MaxMetaspaceFreeRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "70",
+      "max_value": "100",
+      "min_value": "51",
+      "description": "The maximum percentage of Metaspace free after GC to avoid shrinking"
+    },
+    {
+      "name": "MaxMetaspaceExpansion",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4194304",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "The maximum expansion of Metaspace without full GC (in bytes)"
+    },
+    {
+      "name": "QueuedAllocationWarningCount",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "0",
+      "max_value": "10000",
+      "min_value": "0",
+      "description": "Number of times an allocation that queues behind a GC will retry before printing a warning"
+    },
+    {
+      "name": "MaxTenuringThreshold",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "15",
+      "max_value": "15",
+      "min_value": "0",
+      "description": "Maximum value for tenuring threshold"
+    },
+    {
+      "name": "InitialTenuringThreshold",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "7",
+      "max_value": "15",
+      "min_value": "0",
+      "description": "Initial value for tenuring threshold"
+    },
+    {
+      "name": "TargetSurvivorRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "50",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Desired percentage of survivor space used after scavenge"
+    },
+    {
+      "name": "MarkSweepDeadRatio",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "5",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Percentage (0-100) of the old gen allowed as dead wood. Serial mark sweep treats this as both the minimum and maximum value. CMS uses this value only if it falls back to mark sweep. Par compact uses a variable scale based on the density of the generation and treats this as the maximum value when the heap is either completely full or completely empty.  Par compact also has a smaller default value; see arguments.cpp."
+    },
+    {
+      "name": "MarkSweepAlwaysCompactCount",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "4",
+      "max_value": "4000",
+      "min_value": "1",
+      "description": "How often should we fully compact the heap (ignoring the dead space parameters)"
+    },
+    {
+      "name": "PSChunkLargeArrays",
+      "gc": "g1",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Process large arrays in chunks"
+    },
+    {
+      "name": "GCDrainStackTargetSize",
+      "gc": "g1",
+      "type": "uintx",
+      "default_value": "64",
+      "max_value": "1073741823",
+      "min_value": "0",
+      "description": "Number of entries we will try to leave on the stack during parallel gc"
+    }
+  ]
+}

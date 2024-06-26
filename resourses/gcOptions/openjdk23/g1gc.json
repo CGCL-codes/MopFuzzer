@@ -1,0 +1,150 @@
+{
+  "gc_name": "g1gc",
+  "size": 5,
+  "options": [
+    {
+      "name": "G1UseAdaptiveIHOP",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Adaptively adjust the initiating heap occupancy from the initial value of InitiatingHeapOccupancyPercent. The policy attempts to start marking in time based on application behavior."
+    },
+    {
+      "name": "G1ConfidencePercent",
+      "gc": "g1gc",
+      "type": "percent",
+      "default_value": "50",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Confidence level for MMU/pause predictions"
+    },
+    {
+      "name": "G1ConcMarkStepDurationMillis",
+      "gc": "g1gc",
+      "type": "double",
+      "default_value": "10.0",
+      "max_value": "3600000",
+      "min_value": "1.0",
+      "description": "Target duration of individual concurrent marking steps in milliseconds."
+    },
+    {
+      "name": "G1RefProcDrainInterval",
+      "gc": "g1gc",
+      "type": "uint",
+      "default_value": "1000",
+      "max_value": "3600000",
+      "min_value": "1",
+      "description": "The number of discovered reference objects to process before draining concurrent marking work queues."
+    },
+    {
+      "name": "G1SATBBufferSize",
+      "gc": "g1gc",
+      "type": "mem_size",
+      "default_value": "1024",
+      "max_value": "1073741824",
+      "min_value": "1",
+      "description": "Number of entries in an SATB log buffer."
+    },
+    {
+      "name": "G1SATBBufferEnqueueingThresholdPercent",
+      "gc": "g1gc",
+      "type": "percent",
+      "default_value": "60",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Before enqueueing them  each mutator thread tries to do some filtering on the SATB buffers it generates. If post-filtering the percentage of retained entries is over this threshold the buffer will be enqueued for processing. A value of 0 specifies that mutator threads should not do such filtering."
+    },
+    {
+      "name": "G1UpdateBufferSize",
+      "gc": "g1gc",
+      "type": "mem_size",
+      "default_value": "256",
+      "max_value": "1073741824",
+      "min_value": "1",
+      "description": "Size of an update buffer"
+    },
+    {
+      "name": "G1RSetUpdatingPauseTimePercent",
+      "gc": "g1gc",
+      "type": "percent",
+      "default_value": "10",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "A target percentage of time that is allowed to be spend on processing remembered set update buffers during the collection pause."
+    },
+    {
+      "name": "G1ReservePercent",
+      "gc": "g1gc",
+      "type": "percent",
+      "default_value": "10",
+      "max_value": "50",
+      "min_value": "0",
+      "description": "It determines the minimum reserve we should have in the heap to minimize the probability of promotion failure."
+    },
+    {
+      "name": "G1HeapRegionSize",
+      "gc": "g1gc",
+      "type": "mem_size",
+      "default_value": "0",
+      "max_value": "536870912",
+      "min_value": "0",
+      "description": "Size of the G1 regions."
+    },
+    {
+      "name": "G1ConcRefinementThreads",
+      "gc": "g1gc",
+      "type": "uint",
+      "default_value": "0",
+      "max_value": "1000",
+      "min_value": "0",
+      "description": "The number of parallel remembered set update threads. Will be set ergonomically by default."
+    },
+    {
+      "name": "G1HeapWastePercent",
+      "gc": "g1gc",
+      "type": "percent",
+      "default_value": "5",
+      "max_value": "100",
+      "min_value": "0",
+      "description": "Amount of space  expressed as a percentage of the heap size  that G1 is willing not to collect to avoid expensive GCs."
+    },
+    {
+      "name": "G1MixedGCCountTarget",
+      "gc": "g1gc",
+      "type": "uint",
+      "default_value": "8",
+      "max_value": "4294967295",
+      "min_value": "0",
+      "description": "The target number of mixed GCs after a marking cycle."
+    },
+    {
+      "name": "G1PeriodicGCInterval",
+      "gc": "g1gc",
+      "type": "uint",
+      "default_value": "0",
+      "max_value": "4294967295",
+      "min_value": "0",
+      "description": "Number of milliseconds after a previous GC to wait before triggering a periodic gc. A value of zero disables periodically enforced gc cycles."
+    },
+    {
+      "name": "G1PeriodicGCInvokesConcurrent",
+      "gc": "g1gc",
+      "type": "bool",
+      "default_value": "true",
+      "max_value": "null",
+      "min_value": "null",
+      "description": "Determines the kind of periodic GC. Set to true to have G1 perform a concurrent GC as periodic GC  otherwise use a STW Full GC."
+    },
+    {
+      "name": "G1PeriodicGCSystemLoadThreshold",
+      "gc": "g1gc",
+      "type": "double",
+      "default_value": "0.0",
+      "max_value": "4294967295",
+      "min_value": "0.0",
+      "description": "Maximum recent system wide load as returned by the 1m value of getloadavg() at which G1 triggers a periodic GC. A load above this value cancels a given periodic GC. A value of zero disables this check."
+    }
+  ]
+}
