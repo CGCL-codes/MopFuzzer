@@ -196,6 +196,34 @@ Instruction, Multiple Data) optimization, leading to behavior inconsistent with 
 optimization process of automatic SIMD optimization. Specifically, the JVM improperly handled the VSHL (Vector Shift
 Left) operation code during the execution of automatic SIMD optimization.
 
+
+## Profile Flags
+
+ JVM Flags and the Corresponding Regular Expression Rules for Profiling Optimization Behaviors
+
+| **JVM Flags**               | **Optimization Behavior Types**              | **Regular Rules**                                           |
+|-----------------------------|----------------------------------------------|-------------------------------------------------------------|
+| TraceLoopOpts               | B1: Loop Unrolling                           | `Unroll [0-9]+`                                             |
+|                             | B2: Loop Peeling                             | `(Partial)?Peel\s{2}`                                       |
+|                             | B3: Parallel Induction Variables             | `Parallel IV: [0-9]+`                                       |
+|                             | B4: Split if                                 | `^SplitIf$`                                                |
+| TraceLoopUnswitching        | B5: Loop Unswitching                         | `Loop unswitching orig: [0-9]+ @ [0-9]+  new:`               |
+| PrintCEE                    | B6: Conditional Expression Elimination       | `[0-9]+\. CEE in B[0-9]+ (B[0-9]+ B[0-9]+)`                |
+| PrintInlining               | B7: Function Inlining                        | `inline(\s\(hot\))?$`                                       |
+| TraceDeoptimization         | B8: Deoptimization                           | `Uncommon trap`                                             |
+| PrintEscapeAnalysis         | B9: Escape Analysis                          | `(UnknownEscape\|NoEscape\|GlobalEscape\|ArgEscape)`           |
+| PrintEliminateLocks         | B10: Eliminate Locks                         | `(Eliminated: [0-9]+ (Lock\|Unlock)\|unique_lock)`            |
+|                             | B11: Locks Coarsening                        | `(Coarsened [0-9]+ unlocks\|unbalanced coarsened)`           |
+| PrintOptoStatistics         | B12: Conditional Constant Propagation        | `CCP: [0-9]+`                                               |
+| PrintEliminateAllocations   | B13: Eliminate Autobox                       | `Eliminated: [0-9]+ (Allocate\|AllocateArray)*`              |
+| PrintBlockElimination       | B14: Block Elimination                       | `(replaced If and IfOp\|merged B[0-9]+)`                     |
+| PrintPhiFunctions           | B15: simplify Phi Function                   | `try_merge for block B[0-9]+ successful`                    |
+| PrintCanonicalization       | B16: Canonicalization                        | `^canonicalized to:$`                                      |
+| PrintNullCheckElimination   | B17: Null Check Elimination                  | `Done with null check elimination for method`               |
+| TraceRangeCheckElimination  | B18: Range Check Elimination                 | `Range check for instruction [0-9]+ eliminated`             |
+| PrintOptimizePtrCompare     | B19: Optimize Ptr Compare                    | `\+\+\+\+ Replaced: [0-9]+`                               |
+
+
 ## Confirmed Bugs
 
 Since unconfirmed bugs cannot be shown in Java Bug System(JBS), we only show the bugs that are confirmed by developers.
